@@ -1,0 +1,106 @@
+[gd_scene load_steps=12 format=3 uid="uid://c3q2m6fopcuri"]
+
+[ext_resource type="Texture2D" uid="uid://dmqpix6vthxoc" path="res://Assets/AssetsOne.png" id="1_2cqdx"]
+[ext_resource type="Script" path="res://CharactersProps/ChangePolarityButton.gd" id="1_cwql4"]
+[ext_resource type="AudioStream" uid="uid://3s168mtb7opf" path="res://Assets/Click.mp3" id="3_85sm0"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7txca"]
+atlas = ExtResource("1_2cqdx")
+region = Rect2(0, 144, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tixkf"]
+atlas = ExtResource("1_2cqdx")
+region = Rect2(16, 144, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_vebo5"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7txca")
+}],
+"loop": true,
+"name": &"Normal",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tixkf")
+}],
+"loop": true,
+"name": &"Pressed",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t3kod"]
+atlas = ExtResource("1_2cqdx")
+region = Rect2(16, 128, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ism26"]
+atlas = ExtResource("1_2cqdx")
+region = Rect2(32, 128, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3bxjm"]
+atlas = ExtResource("1_2cqdx")
+region = Rect2(0, 128, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_kmmm7"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t3kod")
+}],
+"loop": true,
+"name": &"NEGATIVE",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ism26")
+}],
+"loop": true,
+"name": &"NEUTRAL",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3bxjm")
+}],
+"loop": true,
+"name": &"POSITIVE",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4onbw"]
+size = Vector2(24, 8)
+
+[node name="Button" type="Area2D"]
+script = ExtResource("1_cwql4")
+
+[node name="ButtonStatus" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -8)
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_vebo5")
+animation = &"Normal"
+autoplay = "Normal"
+
+[node name="Polarity" type="AnimatedSprite2D" parent="."]
+z_index = 1
+position = Vector2(0, 24)
+rotation = -3.14159
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_kmmm7")
+animation = &"NEUTRAL"
+flip_h = true
+flip_v = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 4)
+shape = SubResource("RectangleShape2D_4onbw")
+
+[node name="click" type="AudioStreamPlayer2D" parent="."]
+position = Vector2(0, 4)
+stream = ExtResource("3_85sm0")
+volume_db = -10.0
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]

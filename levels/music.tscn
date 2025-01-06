@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://derr4m54kedtx"]
+
+[ext_resource type="AudioStream" uid="uid://dytum73hxrd1l" path="res://Assets/I track.mp3" id="1_f83jf"]
+[ext_resource type="Script" path="res://levels/music.gd" id="2_56i7m"]
+
+[node name="Music" type="AudioStreamPlayer"]
+stream = ExtResource("1_f83jf")
+volume_db = -5.0
+autoplay = true
+script = ExtResource("2_56i7m")

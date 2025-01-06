@@ -1,0 +1,242 @@
+[gd_scene load_steps=16 format=3 uid="uid://clt6bjhrlhheq"]
+
+[ext_resource type="TileSet" uid="uid://cqq5e1u4wf308" path="res://Tileset.tres" id="1_847x8"]
+[ext_resource type="Script" path="res://CharactersProps/player_magnet.gd" id="1_k280t"]
+[ext_resource type="Texture2D" uid="uid://dmqpix6vthxoc" path="res://Assets/AssetsOne.png" id="3_2fggf"]
+[ext_resource type="Texture2D" uid="uid://c6haj1th322kd" path="res://Assets/Minus.png" id="4_q21v8"]
+[ext_resource type="SkeletonModification2DCCDIK" uid="uid://cr4rjvyv8rc70" path="res://CharactersProps/player_magnet.tres" id="5_dbpi7"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t3kod"]
+atlas = ExtResource("3_2fggf")
+region = Rect2(16, 128, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3bxjm"]
+atlas = ExtResource("3_2fggf")
+region = Rect2(0, 128, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_l1mub"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t3kod")
+}],
+"loop": true,
+"name": &"NEGATIVE",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": null
+}],
+"loop": true,
+"name": &"NEUTRAL",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3bxjm")
+}],
+"loop": true,
+"name": &"POSITIVE",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_e6usg"]
+size = Vector2(143.97, 32)
+
+[sub_resource type="Curve" id="Curve_mgxtg"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.1, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_ufydy"]
+curve = SubResource("Curve_mgxtg")
+
+[sub_resource type="Curve" id="Curve_2vm0h"]
+min_value = -360.0
+max_value = 360.0
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, -3.95605), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_xvrdt"]
+curve = SubResource("Curve_2vm0h")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_7po32"]
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(1, 15, 1)
+angle_min = -577.3
+angle_max = 720.0
+angle_curve = SubResource("CurveTexture_xvrdt")
+direction = Vector3(10, 0, 0)
+spread = 0.0
+initial_velocity_min = 50.0
+initial_velocity_max = 50.0
+gravity = Vector3(0, 0, 0)
+scale_min = 0.5
+scale_max = 0.5
+color = Color(0.890196, 0.933333, 0.752941, 1)
+alpha_curve = SubResource("CurveTexture_ufydy")
+turbulence_noise_strength = 0.16
+turbulence_noise_scale = 10.0
+
+[sub_resource type="SkeletonModificationStack2D" id="SkeletonModificationStack2D_nrkxh"]
+enabled = true
+modification_count = 1
+modifications/0 = ExtResource("5_dbpi7")
+
+[node name="PlayerMagnet" type="PathFollow2D"]
+rotates = false
+loop = false
+script = ExtResource("1_k280t")
+
+[node name="Parts" type="Node2D" parent="."]
+scale = Vector2(2, 2)
+
+[node name="Root" type="Node2D" parent="Parts"]
+
+[node name="TileMap" type="TileMap" parent="Parts/Root"]
+position = Vector2(-8, -6)
+tile_set = ExtResource("1_847x8")
+format = 2
+layer_0/tile_data = PackedInt32Array(0, 65537, 7)
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Parts/Root"]
+z_index = 1
+position = Vector2(1.81899e-11, 0)
+rotation = -3.14159
+scale = Vector2(1.00013, 1.00013)
+sprite_frames = SubResource("SpriteFrames_l1mub")
+animation = &"NEUTRAL"
+flip_h = true
+flip_v = true
+
+[node name="ChainOne" type="Node2D" parent="Parts"]
+position = Vector2(0, 3)
+
+[node name="TileMap" type="TileMap" parent="Parts/ChainOne"]
+position = Vector2(-8, -5)
+tile_set = ExtResource("1_847x8")
+format = 2
+layer_0/tile_data = PackedInt32Array(0, 131073, 7)
+
+[node name="ChainTwo" type="Node2D" parent="Parts"]
+position = Vector2(0, 11)
+
+[node name="TileMap" type="TileMap" parent="Parts/ChainTwo"]
+position = Vector2(-8, -5)
+tile_set = ExtResource("1_847x8")
+format = 2
+layer_0/tile_data = PackedInt32Array(0, 131073, 7)
+
+[node name="ChainThree" type="Node2D" parent="Parts"]
+position = Vector2(0, 19)
+
+[node name="TileMap" type="TileMap" parent="Parts/ChainThree"]
+position = Vector2(-8, -5)
+tile_set = ExtResource("1_847x8")
+format = 2
+layer_0/tile_data = PackedInt32Array(0, 131073, 7)
+
+[node name="Base" type="Node2D" parent="Parts"]
+position = Vector2(0, 27)
+
+[node name="TileMap" type="TileMap" parent="Parts/Base"]
+position = Vector2(-8, -6)
+tile_set = ExtResource("1_847x8")
+format = 2
+layer_0/tile_data = PackedInt32Array(0, 65537, 7)
+
+[node name="Handle" type="Node2D" parent="Parts"]
+position = Vector2(0, 29)
+
+[node name="PlayerChecker" type="RayCast2D" parent="Parts/Handle"]
+position = Vector2(4, -5.00001)
+rotation = 1.5708
+scale = Vector2(0.500066, 0.500066)
+target_position = Vector2(6.10352e-05, 15.9979)
+hit_from_inside = true
+
+[node name="TileMap" type="TileMap" parent="Parts/Handle"]
+position = Vector2(-8, -7)
+tile_set = ExtResource("1_847x8")
+format = 2
+layer_0/tile_data = PackedInt32Array(0, 1, 7)
+
+[node name="Magnet" type="Area2D" parent="Parts/Handle"]
+position = Vector2(4.54747e-12, 11)
+rotation = 1.5708
+scale = Vector2(0.500066, 0.500066)
+gravity_space_override = 3
+gravity_point = true
+gravity_point_center = Vector2(0, 24)
+gravity_direction = Vector2(0, 24)
+gravity = 100.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Parts/Handle/Magnet"]
+position = Vector2(55.9927, -0.000202693)
+shape = SubResource("RectangleShape2D_e6usg")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="Parts/Handle/Magnet"]
+position = Vector2(-15.9979, 5.54402e-05)
+emitting = false
+amount = 50
+process_material = SubResource("ParticleProcessMaterial_7po32")
+texture = ExtResource("4_q21v8")
+lifetime = 3.0
+local_coords = true
+
+[node name="Bones" type="Node2D" parent="."]
+scale = Vector2(2, 2)
+
+[node name="Skeleton2D" type="Skeleton2D" parent="Bones"]
+modification_stack = SubResource("SkeletonModificationStack2D_nrkxh")
+
+[node name="Root" type="Bone2D" parent="Bones/Skeleton2D"]
+rest = Transform2D(1, 0, 0, 1, 0, 0)
+
+[node name="RemoteTransform2D" type="RemoteTransform2D" parent="Bones/Skeleton2D/Root"]
+remote_path = NodePath("../../../../Parts/Root")
+
+[node name="ChainOne" type="Bone2D" parent="Bones/Skeleton2D/Root"]
+position = Vector2(0, 3)
+rest = Transform2D(1, 0, 0, 1, 0, 3)
+
+[node name="RemoteTransform2D" type="RemoteTransform2D" parent="Bones/Skeleton2D/Root/ChainOne"]
+remote_path = NodePath("../../../../../Parts/ChainOne")
+
+[node name="ChainTwo" type="Bone2D" parent="Bones/Skeleton2D/Root/ChainOne"]
+position = Vector2(0, 8)
+rest = Transform2D(1, 0, 0, 1, 0, 8)
+
+[node name="RemoteTransform2D" type="RemoteTransform2D" parent="Bones/Skeleton2D/Root/ChainOne/ChainTwo"]
+remote_path = NodePath("../../../../../../Parts/ChainTwo")
+
+[node name="ChainThree" type="Bone2D" parent="Bones/Skeleton2D/Root/ChainOne/ChainTwo"]
+position = Vector2(0, 8)
+rest = Transform2D(1, 0, 0, 1, 0, 8)
+
+[node name="RemoteTransform2D" type="RemoteTransform2D" parent="Bones/Skeleton2D/Root/ChainOne/ChainTwo/ChainThree"]
+remote_path = NodePath("../../../../../../../Parts/ChainThree")
+
+[node name="Base" type="Bone2D" parent="Bones/Skeleton2D/Root/ChainOne/ChainTwo/ChainThree"]
+position = Vector2(0, 8)
+rest = Transform2D(1, 0, 0, 1, 0, 8)
+
+[node name="RemoteTransform2D" type="RemoteTransform2D" parent="Bones/Skeleton2D/Root/ChainOne/ChainTwo/ChainThree/Base"]
+remote_path = NodePath("../../../../../../../../Parts/Base")
+
+[node name="Handle" type="Bone2D" parent="Bones/Skeleton2D/Root/ChainOne/ChainTwo/ChainThree/Base"]
+position = Vector2(0, 2)
+rest = Transform2D(1, 0, 0, 1, 0, 2)
+auto_calculate_length_and_angle = false
+length = 16.0
+bone_angle = 0.0
+
+[node name="RemoteTransform2D" type="RemoteTransform2D" parent="Bones/Skeleton2D/Root/ChainOne/ChainTwo/ChainThree/Base/Handle"]
+remote_path = NodePath("../../../../../../../../../Parts/Handle")
+
+[node name="IKNodes" type="Node2D" parent="."]
+scale = Vector2(2, 2)
+
+[node name="Marker2D" type="Marker2D" parent="IKNodes"]
+position = Vector2(56, 0)

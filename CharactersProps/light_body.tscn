@@ -1,0 +1,38 @@
+[gd_scene load_steps=6 format=3 uid="uid://c8ob0i22s3d7i"]
+
+[ext_resource type="Script" path="res://Light_body.gd" id="1_aqrkn"]
+[ext_resource type="Texture2D" uid="uid://dmqpix6vthxoc" path="res://Assets/AssetsOne.png" id="2_vt4uj"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_2hivb"]
+radius = 14.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ewm5k"]
+atlas = ExtResource("2_vt4uj")
+region = Rect2(240, 112, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_v0rj8"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ewm5k")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="Light_body" type="CharacterBody2D" groups=["PRESSURE"]]
+script = ExtResource("1_aqrkn")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_2hivb")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_v0rj8")
+
+[node name="Ray" type="RayCast2D" parent="."]
+position = Vector2(24, 0)
+target_position = Vector2(-48, 0)
+hit_from_inside = true
